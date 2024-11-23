@@ -5,24 +5,24 @@ st.title("Formula-1 Events App")
 st.markdown("In this app, the events that happen during a race is showed")
 
 data_path = "check.csv"
-df = pd.read_csv(data_path)
-df['date'] = pd.to_datetime(df['date'])
+data = pd.read_csv(data_path)
+data['date'] = pd.to_datetime(data['date'])
 
 st.sidebar.header("Filters")
 
-start_date = st.sidebar.date_input("Start Date", value=df['date'].min())
-end_date = st.sidebar.date_input("End Date", value=df['date'].max())
-category_filter = st.sidebar.multiselect("Category", options=df["category"].unique(), default=df["category"].unique())
-flag_filter = st.sidebar.multiselect("Flag", options=df["flag"].dropna().unique(), default=df["flag"].dropna().unique())
-scope_filter = st.sidebar.multiselect("Scope", options=df["scope"].dropna().unique(), default=df["scope"].dropna().unique())
+start_date = st.sidebar.date_input("Start Date", value=data['date'].min())
+end_date = st.sidebar.date_input("End Date", value=data['date'].max())
+category_filter = st.sidebar.multiselect("Category", options=data["category"].unique())
+flag_filter = st.sidebar.multiselect("Flag", options=data["flag"].dropna().unique())
+scope_filter = st.sidebar.multiselect("Scope", options=data["scope"].dropna().unique())
 
-filtered_data = df[
-    (df['date'] >= pd.Timestamp(start_date)) &
-    (df['date'] <= pd.Timestamp(end_date)) &
-    (df['category'].isin(category_filter)) &
-    (df['flag'].isin(flag_filter)) &
-    (df['scope'].isin(scope_filter))
+filtered_data = data[
+    (data['date'] >= pd.Timestamp(start_date)) &
+    (data['date'] <= pd.Timestamp(end_date)) &
+    (data['category'].isin(category_filter)) &
+    (data['flag'].isin(flag_filter)) &
+    (data['scope'].isin(scope_filter))
 ]
 
-st.header("Filtered Data")
+st.header("Events")
 st.write(filtered_data)
