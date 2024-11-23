@@ -41,12 +41,12 @@ if st.sidebar.button("Apply Filters"):
     ]
     data_wo_dn = filtered_data.drop(columns=['driver_number'])
     for idx, row in data_wo_dn.iterrows():
-        driver_link = f"[{row['driver']}](/?driver={row['driver']})" if pd.notna(row['driver']) else "None"
+        if pd.notna(row['driver']):
+            driver_link = f"[{row['driver']}](/?driver={row['driver']})"  
+        else:
+            driver_link = "None"
         data_wo_dn.at[idx, 'driver'] = driver_link
 
-    st.write(data_wo_dn.to_html(escape=False, index=False), unsafe_allow_html=True)
-
-# Driver Information Page
 query_params = st.query_params
 selected_driver = query_params.get("driver", [None])[0]
 
