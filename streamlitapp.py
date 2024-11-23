@@ -8,7 +8,7 @@ data_path = "data.csv"
 data = pd.read_csv(data_path)
 data['date'] = pd.to_datetime(data['date'])
 
-drivers_file = "F1Drivers.csv"
+drivers_file = "F1_Drivers.csv"
 drivers_data = pd.read_csv(drivers_file)
 
 new_data = pd.merge(
