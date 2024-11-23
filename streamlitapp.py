@@ -19,22 +19,22 @@ new_data = pd.merge(
 )
 
 new_data['driver'] = new_data['name_acronym'] 
-new_data.drop(columns="name_acronym")
+new_data.drop(columns=['name_acronym'],inplace=True)
 st.sidebar.header("Filters")
 
-start_date = st.sidebar.date_input("Start Date", value=data['date'].min())
-end_date = st.sidebar.date_input("End Date", value=data['date'].max())
-category_filter = st.sidebar.multiselect("Category", options=data["category"].unique(),default=data["category"].unique())
-flag_filter = st.sidebar.multiselect("Flag", options=data["flag"].dropna().unique(),default=data["flag"].unique())
-scope_filter = st.sidebar.multiselect("Scope", options=data["scope"].dropna().unique(),default=data["scope"].unique())
+start_date = st.sidebar.date_input("Start Date", value=new_data['date'].min())
+end_date = st.sidebar.date_input("End Date", value=new_data['date'].max())
+category_filter = st.sidebar.multiselect("Category", options=new_data["category"].unique(),default=new_data["category"].unique())
+flag_filter = st.sidebar.multiselect("Flag", options=new_data["flag"].dropna().unique(),default=new_data["flag"].unique())
+scope_filter = st.sidebar.multiselect("Scope", options=new_data["scope"].dropna().unique(),default=new_data["scope"].unique())
 
 if st.sidebar.button("Apply Filters"):
-    filtered_data = data[
-        (data['date'] >= pd.Timestamp(start_date)) &
-        (data['date'] <= pd.Timestamp(end_date)) &
-        (data['category'].isin(category_filter) if category_filter else True) &
-        (data['flag'].isin(flag_filter) if flag_filter else True) &
-        (data['scope'].isin(scope_filter) if scope_filter else True)
+    filtered_data = new_data[
+        (new_data['date'] >= pd.Timestamp(start_date)) &
+        (new_data['date'] <= pd.Timestamp(end_date)) &
+        (new_data['category'].isin(category_filter) if category_filter else True) &
+        (new_data['flag'].isin(flag_filter) if flag_filter else True) &
+        (new_data['scope'].isin(scope_filter) if scope_filter else True)
     ]
 
     st.header("Filtered Events")
