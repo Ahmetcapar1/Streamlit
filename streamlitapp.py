@@ -27,7 +27,6 @@ end_date = st.sidebar.date_input("End Date", value=data['date'].max())
 category_filter = st.sidebar.multiselect("Category", options=data["category"].unique(),default=data["category"].unique())
 flag_filter = st.sidebar.multiselect("Flag", options=data["flag"].dropna().unique(),default=data["flag"].unique())
 scope_filter = st.sidebar.multiselect("Scope", options=data["scope"].dropna().unique(),default=data["scope"].unique())
-driver_filter = st.sidebar.multiselect("Driver",options=data["driver"].unique(),default=data["driver"].unique())
 
 if st.sidebar.button("Apply Filters"):
     filtered_data = data[
@@ -35,8 +34,7 @@ if st.sidebar.button("Apply Filters"):
         (data['date'] <= pd.Timestamp(end_date)) &
         (data['category'].isin(category_filter) if category_filter else True) &
         (data['flag'].isin(flag_filter) if flag_filter else True) &
-        (data['scope'].isin(scope_filter) if scope_filter else True) &
-        (data["driver"].isin(driver_filter) if driver_filter else True)
+        (data['scope'].isin(scope_filter) if scope_filter else True)
     ]
 
     st.header("Filtered Events")
