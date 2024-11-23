@@ -8,6 +8,9 @@ data_path = "data.csv"
 data = pd.read_csv(data_path)
 data['date'] = pd.to_datetime(data['date'])
 
+data['flag'] = data['flag'].fillna('None')
+data['scope'] = data['scope'].fillna('None')
+
 drivers_file = "F1_Drivers.csv"
 drivers_data = pd.read_csv(drivers_file)
 
