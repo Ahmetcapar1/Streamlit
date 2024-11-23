@@ -40,5 +40,22 @@ if st.sidebar.button("Apply Filters"):
         (new_data['scope'].isin(scope_filter) if scope_filter else True)
     ]
     data_wo_dn = filtered_data.drop(columns=['driver_number'])
-    st.header("Filtered Events")
-    st.write(data_wo_dn)
+    for idx, row in data_wo_dn.iterrows():
+        driver_link = f"[{row['driver']}](/?driver={row['driver']})" if pd.notna(row['driver']) else "None"
+        data_wo_dn.at[idx, 'driver'] = driver_link
+
+    st.write(data_wo_dn.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+# Driver Information Page
+query_params = st.experimental_get_query_params()
+selected_driver = query_params.get("driver", [None])[0]
+
+if selected_driver:
+    driver_info = drivers_data[drivers_data['name_acronym'] == selected_driver]
+    
+    if not driver_info.empty:
+        st.header(f"Driver Information: {selected_driver}")
+        st.write(f"### Name: {driver_info['full_name'].iloc[0]}")
+        st.write(f"### Driver Number: {driver_info['driver_number'].iloc[0]}") 
+        st.write(f"### Team:{driver_info['team_name'].iloc[0]}")
+        st.write(f"### Nation:{driver_info['country_code'].iloc[0]}")
