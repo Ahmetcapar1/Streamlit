@@ -18,8 +18,8 @@ new_data = pd.merge(
     how='left'
 )
 
-data['driver'] = new_data['name_acronym'] 
-
+new_data['driver'] = new_data['name_acronym'] 
+new_data.drop(columns="name_acronym")
 st.sidebar.header("Filters")
 
 start_date = st.sidebar.date_input("Start Date", value=data['date'].min())
