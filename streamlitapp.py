@@ -46,7 +46,7 @@ if st.sidebar.button("Apply Filters"):
         else:
             driver_link = "None"
         data_wo_dn.at[idx, 'driver'] = driver_link
-
+    st.write(data_wo_dn.to_html(escape=False, index=False), unsafe_allow_html=True)
 query_params = st.query_params
 selected_driver = query_params.get("driver", [None])[0]
 
