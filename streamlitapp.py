@@ -4,7 +4,7 @@ import hw
 st.title("Formula-1 Events App")
 st.markdown("In this app, the events that happen during a race is showed")
 
-data_path = "check.csv"
+data_path = "data.csv"
 data = pd.read_csv(data_path)
 data['date'] = pd.to_datetime(data['date'])
 
