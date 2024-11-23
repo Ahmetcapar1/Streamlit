@@ -47,7 +47,7 @@ if st.sidebar.button("Apply Filters"):
     st.write(data_wo_dn.to_html(escape=False, index=False), unsafe_allow_html=True)
 
 # Driver Information Page
-query_params = st.experimental_get_query_params()
+query_params = st.query_params
 selected_driver = query_params.get("driver", [None])[0]
 
 if selected_driver:
