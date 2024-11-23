@@ -6,7 +6,7 @@ st.markdown("In this app, the events that happen during a race is showed")
 
 data_file = "data.csv"
 data = pd.read_csv(data_file)
-data['date'] = pd.to_datetime(data['date']).dt.date
+data['date'] = pd.to_datetime(data['date'])
 
 data['flag'] = data['flag'].fillna('None')
 data['scope'] = data['scope'].fillna('None')
