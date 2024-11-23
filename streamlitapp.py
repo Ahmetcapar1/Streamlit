@@ -3,7 +3,6 @@ import pandas as pd
 import hw
 st.title("Formula-1 Events App")
 st.markdown("In this app, the events that happen during a race is showed")
-hw.main()  
 
 data_path = "check.csv"
 df = pd.read_csv(data_path)
