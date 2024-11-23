@@ -13,14 +13,17 @@ st.sidebar.header("Filters")
 start_date = st.sidebar.date_input("Start Date", value=data['date'].min())
 end_date = st.sidebar.date_input("End Date", value=data['date'].max())
 category_filter = st.sidebar.multiselect("Category", options=data["category"].unique())
+flag_filter = st.sidebar.multiselect("Flag", options=data["flag"].dropna().unique())
 scope_filter = st.sidebar.multiselect("Scope", options=data["scope"].dropna().unique())
 
-filtered_data = data[
-    (data['date'] >= pd.Timestamp(start_date)) &
-    (data['date'] <= pd.Timestamp(end_date)) &
-    (data['category'].isin(category_filter)) &
-    (data['scope'].isin(scope_filter))
-]
+if st.sidebar.button("Apply Filters"):
+    filtered_data = data[
+        (data['date'] >= pd.Timestamp(start_date)) &
+        (data['date'] <= pd.Timestamp(end_date)) &
+        (data['category'].isin(category_filter) if category_filter else True) &
+        (data['flag'].isin(flag_filter) if flag_filter else True) &
+        (data['scope'].isin(scope_filter) if scope_filter else True)
+    ]
 
-st.header("Events")
-st.write(filtered_data)
+    st.header("Filtered Events")
+    st.write(filtered_data)
