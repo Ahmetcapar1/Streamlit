@@ -4,9 +4,9 @@ import hw
 st.title("Formula-1 Events App")
 st.markdown("In this app, the events that happen during a race is showed")
 
-data_path = "data.csv"
-data = pd.read_csv(data_path)
-data['date'] = pd.to_datetime(data['date'])
+data_file = "data.csv"
+data = pd.read_csv(data_file)
+data['date'] = pd.to_datetime(data['date']).dt.date
 
 data['flag'] = data['flag'].fillna('None')
 data['scope'] = data['scope'].fillna('None')
@@ -39,6 +39,6 @@ if st.sidebar.button("Apply Filters"):
         (new_data['flag'].isin(flag_filter) if flag_filter else True) &
         (new_data['scope'].isin(scope_filter) if scope_filter else True)
     ]
-
+    data_wo_dn = filtered_data.drop(columns=['driver_number'])
     st.header("Filtered Events")
-    st.write(filtered_data)
+    st.write(data_wo_dn)
