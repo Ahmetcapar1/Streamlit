@@ -7,8 +7,13 @@ st.markdown("In this app, the events that happen during a race is showed")
 data_file = "data.csv"
 data = pd.read_csv(data_file)
 data['date'] = pd.to_datetime(data['date'])
-
-data['lap_number'].apply(lambda x: x[:-2] if len(x)>1 else x)
+for i in data['lap_number']:
+    lap_num_int=[]
+    try:
+        lap_num_int.append(int(i))
+    except:
+        lap_num_int.append(i)
+data['lap_number']=lap_num_int
 
 data['flag'] = data['flag'].fillna('None')
 data['scope'] = data['scope'].fillna('None')
