@@ -10,7 +10,7 @@ data['date'] = pd.to_datetime(data['date'])
 
 data['flag'] = data['flag'].fillna('None')
 data['scope'] = data['scope'].fillna('None')
-data['lap_number'] = data['lap_number'].fillna("?")
+data['lap_number'] = data['lap_number'].fillna("Unknown")
 
 drivers_file = "F1_Drivers.csv"
 drivers_data = pd.read_csv(drivers_file)
@@ -41,22 +41,8 @@ if st.sidebar.button("Apply Filters"):
         (new_data['scope'].isin(scope_filter) if scope_filter else True)
     ]
     data_wo_dn = filtered_data.drop(columns=['driver_number'])
-    for idx, row in data_wo_dn.iterrows():
-        if pd.notna(row['driver']):
-            driver_link = f"[{row['driver']}](/?driver={row['driver']})"  
-        else:
-            driver_link = "None"
-        data_wo_dn.at[idx, 'driver'] = driver_link
-    st.write(data_wo_dn.to_html(escape=False, index=False), unsafe_allow_html=True)
-query_params = st.experimental_get_query_params()
-selected_driver = query_params.get("driver", [None])[0]
-
-if selected_driver:
-    driver_info = drivers_data[drivers_data['name_acronym'] == selected_driver]
     
-    if not driver_info.empty:
-        st.header(f"Driver Information: {selected_driver}")
-        st.write(f"### Name: {driver_info['full_name'].iloc[0]}")
-        st.write(f"### Driver Number: {driver_info['driver_number'].iloc[0]}") 
-        st.write(f"### Team:{driver_info['team_name'].iloc[0]}")
-        st.write(f"### Nation:{driver_info['country_code'].iloc[0]}")
+    st.write(data_wo_dn.to_html(escape=False, index=False), unsafe_allow_html=True)
+
+
+
