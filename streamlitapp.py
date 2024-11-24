@@ -8,7 +8,7 @@ data_file = "data.csv"
 data = pd.read_csv(data_file)
 data['date'] = pd.to_datetime(data['date'])
 
-data['lap_number'].apply(lambda x: int(x) if x!="" else x)
+data['lap_number'].apply(lambda x: x[:-2] if len(x)>1 else x)
 
 data['flag'] = data['flag'].fillna('None')
 data['scope'] = data['scope'].fillna('None')
