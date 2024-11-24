@@ -12,6 +12,7 @@ data['flag'] = data['flag'].fillna('None')
 data['scope'] = data['scope'].fillna('None')
 data['lap_number'] = data['lap_number'].fillna("Unknown")
 
+
 drivers_file = "F1_Drivers.csv"
 drivers_data = pd.read_csv(drivers_file)
 
@@ -25,6 +26,7 @@ new_data = pd.merge(
 new_data['driver'] = new_data['name_acronym'] 
 new_data.drop(columns=['name_acronym'],inplace=True)
 st.sidebar.header("Filters")
+new_data["driver"] = new_data["driver"].fillna("-")
 
 start_date = st.sidebar.date_input("Start Date", value=new_data['date'].min())
 end_date = st.sidebar.date_input("End Date", value=new_data['date'].max())
