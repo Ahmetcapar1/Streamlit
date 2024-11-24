@@ -11,8 +11,7 @@ data['date'] = pd.to_datetime(data['date'])
 data['flag'] = data['flag'].fillna('None')
 data['scope'] = data['scope'].fillna('None')
 data['lap_number'] = data['lap_number'].fillna("Unknown")
-data["lap_number"] = [int(i) for i in data['lap_number'] if i!="Unknown"]
-
+data["lap_number"] = [int(i) for i in data['lap_number']]
 drivers_file = "F1_Drivers.csv"
 drivers_data = pd.read_csv(drivers_file)
 
