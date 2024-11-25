@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import hw
+import Events
 st.title("Formula-1 Events App")
 st.markdown("In this app, the events that happen during a race is showed")
 
